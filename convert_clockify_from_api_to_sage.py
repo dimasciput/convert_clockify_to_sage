@@ -25,9 +25,13 @@ def convert_to_sage(clockify_data):
 		if row['projectName'] not in converted_data_customer:
 			converted_data_customer[row['projectName']] = {}
 		converted_data_project = converted_data_customer[row['projectName']]
-		if row['taskName'] not in converted_data_project:
-			converted_data_project[row['taskName']] = {}
-		converted_data_task = converted_data_project[row['taskName']]
+		if 'taskName' in row:
+			task_name = row['taskName']
+		else:
+			task_name = '-'
+		if task_name not in converted_data_project:
+			converted_data_project[task_name] = {}
+		converted_data_task = converted_data_project[task_name]
 		if row['description'] not in converted_data_task:
 			converted_data_task[row['description']] = float(row['timeInterval']['duration']) / 3600
 		else:
